@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Management Panel - A ONE EDUCATION CENTRE</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; display: flex; min-height: 100vh; }
+        
+        /* Sidebar Navigation */
+        .sidebar { width: 260px; background: #002244; color: white; padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+        .sidebar h2 { font-size: 20px; margin-bottom: 20px; text-align: center; border-bottom: 2px solid #ffcc00; padding-bottom: 10px; color: #ffcc00; }
+        .sidebar-btn { background: none; border: none; color: white; text-align: left; padding: 12px 15px; font-size: 16px; cursor: pointer; border-radius: 4px; transition: 0.3s; width: 100%; }
+        .sidebar-btn:hover, .sidebar-btn.active { background: #003366; color: #fff; font-weight: bold; border-left: 4px solid #ffcc00; }
+        .logout-btn { margin-top: auto; background: #cc0000; color: white; text-align: center; font-weight: bold; }
+        .logout-btn:hover { background: #990000; }
+
+        /* Main Content Area */
+        .main-content { flex: 1; padding: 30px; overflow-y: auto; }
+        .header-bar { display: flex; justify-content: space-between; align-items: center; background: white; padding: 15px 30px; margin: -30px -30px 30px -30px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .badge-role { background: #ffcc00; color: #002244; padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 14px; }
+        
+        /* Tab Content Styling */
+        .tab-content { display: none; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .tab-content.active { display: block; }
+        
+        h3 { color: #002244; margin-bottom: 20px; border-bottom: 2px solid #eef2f7; padding-bottom: 10px; }
+        
+        /* Forms & Inputs */
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: bold; color: #444; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 15px; }
+        
+        .btn { background: #003366; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn:hover { background: #002244; }
+        
+        /* Data Tables */
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        table th, table td { border: 1px solid #cbd5e1; padding: 12px; text-align: left; }
+        table th { background: #e2e8f0; color: #002244; }
+        
+        .status-pill { padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; text-align: center; display: inline-block; }
+        .status-paid { background: #d4edda; color: #155724; }
+        .status-unpaid { background: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <h2>A ONE ADMIN</h2>
+        <button class="sidebar-btn active" onclick="openTab(event, 'manage-batches')">📢 Manage Batches</button>
+        <button class="sidebar-btn" onclick="openTab(event, 'manage-notices')">🔔 Push Notices</button>
+        <button class="sidebar-btn" onclick="openTab(event, 'update-fees')">💰 Fee Updates</button>
+        <button class="sidebar-btn" onclick="openTab(event, 'upload-results')">📊 Publish Results</button>
+        <a href="index.html" class="sidebar-btn logout-btn">🚪 Logout Admin</a>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main-content">
+        
+        <!-- Top Control Bar -->
+        <div class="header-bar">
+            <div><h1>Coaching Management Portal</h1></div>
+            <div><span class="badge-role">Role: Super Admin / Staff</span></div>
+        </div>
+
+        <!-- TAB 1: Manage Upcoming Batches -->
+        <div id="manage-batches" class="tab-content active">
+            <h3>📢 Add New Upcoming Batch</h3>
+            <form onsubmit="handleFormSubmit(event, 'Batch successfully added & visible on website front-page!')">
+                <div class="form-group">
+                    <label>Batch Name / Course:</label>
+                    <input type="text" placeholder="e.g., Target SSC CGL 2027" required>
+                </div>
+                <div class="form-group">
+                    <label>Starting Date:</label>
+                    <input type="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Batch Timing:</label>
+                    <input type="text" placeholder="e.g., 10:00 AM - 01:00 PM" required>
+                </div>
+                <button type="submit" class="btn">🚀 Launch & Display Batch</button>
+            </form>
+        </div>
+
+        <!-- TAB 2: Manage Notice Board -->
+        <div id="manage-notices" class="tab-content">
+            <h3>🔔 Post Live Notice Alert</h3>
+            <form onsubmit="handleFormSubmit(event, 'Notice successfully published to Student Dashboard marquee!')">
+                <div class="form-group">
+                    <label>Notice Heading / Alert Level:</label>
+                    <select>
+                        <option>Urgent Alert (Red)</option>
+                        <option>General Info (Blue)</option>
+                        <option>Fee Reminder (Green)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Notice Message Description:</label>
+                    <textarea rows="4" placeholder="Type notice details here for students..." required></textarea>
+                </div>
+                <button type="submit" class="btn">📢 Push Notice Board Live</button>
+            </form>
+        </div>
+
+        <!-- TAB 3: Fee Updates & Records -->
+        <div id="update-fees" class="tab-content">
+            <h3>💰 Student Fee Management Ledger</h3>
+            <div style="background: #eef2f7; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
+                <h4>Quick Fee Update Panel</h4>
+                <form onsubmit="handleFormSubmit(event, 'Student fee status successfully updated!')" style="display: flex; gap: 15px; margin-top: 10px; align-items: flex-end;">
+                    <div style="flex: 1;">
+                        <input type="text" placeholder="Student Roll No" required style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                    </div>
+                    <div style="flex: 1;">
+                        <select style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                            <option>October Fee - Paid</option>
+                            <option>November Fee - Paid</option>
+                            <option>Admission Fee - Paid</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn" style="padding: 8px 20px;">Update</button>
+                </form>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Roll No</th>
+                        <th>Student Name</th>
+                        <th>Current Batch</th>
+                        <th>Pending Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>A1-2026-089</td>
+                        <td>Rahul Kumar</td>
+                        <td>SSC Target 2026</td>
+                        <td>₹1,500</td>
+                        <td><span class="status-pill status-unpaid">UNPAID (Nov)</span></td>
+                    </tr>
+                    <tr>
+                        <td>A1-2026-090</td>
+                        <td>Priya Sharma</td>
+                        <td>12th Board Batch</td>
+                        <td>₹0</td>
+                        <td><span class="status-pill status-paid">FULL PAID</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- TAB 4: Upload & Publish Online Results -->
+        <div id="upload-results" class="tab-content">
+            <h3>📊 Publish Online Test Result Cards</h3>
+            <form onsubmit="handleFormSubmit(event, 'Test answersheet and metrics compiled. Student report cards successfully generated!')">
+                <div class="form-group">
+                    <label>Select Conducted Test:</label>
+                    <select>
+                        <option>SSC Tier-1 Full Mock Test #12</option>
+                        <option>Weekly Reasoning Practice Quiz</option>
+                        <option>Mathematics Profit & Loss Test</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Import Result CSV / Marks Database File:</label>
+                    <input type="file" accept=".csv, .xlsx" required>
+                    <small style="color: #666; display:block; margin-top:5px;">Upload excel/csv sheet format with columns: RollNo, Score, WrongAns, Rank.</small>
+                </div>
+                <button type="submit" class="btn">📊 Compute & Release Scorecards</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, sidebarbtn;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            sidebarbtn = document.getElementsByClassName("sidebar-btn");
+            for (i = 0; i < sidebarbtn.length; i++) {
