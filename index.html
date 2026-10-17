@@ -25,7 +25,6 @@
 </head>
 <body>
 
-    <!-- Header & Navigation -->
     <header>
         <h1>A ONE EDUCATION CENTRE</h1>
         <p>Your Success, Our Mission</p>
@@ -37,70 +36,42 @@
         <a href="#notices">Notice Board</a>
     </nav>
 
-    <!-- Main Content Area -->
     <div class="container" id="home">
-        
-        <!-- Left Side: Features and Updates -->
         <div class="main-content">
             <h2>Welcome to A ONE EDUCATION CENTRE</h2>
             <p style="margin-bottom: 20px;">We provide high-quality education and online test series to help you achieve your career goals.</p>
-
             <div id="batches">
                 <h2>📢 Upcoming Batches</h2>
                 <div class="card">
                     <h3>SSC & Railway Special Batch</h3>
                     <p><strong>Starts From:</strong> 1st November 2026 | <strong>Timing:</strong> 09:00 AM - 12:00 PM</p>
                 </div>
-                <div class="card">
-                    <h3>10th & 12th Board Target Batch</h3>
-                    <p><strong>Starts From:</strong> 5th November 2026 | <strong>Timing:</strong> 04:00 PM - 07:00 PM</p>
-                </div>
-            </div>
-
-            <div style="margin-top: 30px;">
-                <h2>💻 Online Academic Portal Features</h2>
-                <ul>
-                    <li>🖥️ <strong>Online Classes:</strong> Live streaming and recorded lectures directly in student panel.</li>
-                    <li>📝 <strong>Online Test Series:</strong> Dynamic MCQ test platform for real-time exam experience.</li>
-                    <li>📊 <strong>Online Results:</strong> Instant report card generation after test submission.</li>
-                    <li>💰 <strong>Fee Update System:</strong> Track pending and submitted fees easily.</li>
-                </ul>
             </div>
         </div>
 
-        <!-- Right Side: Sidebar Notice Board -->
         <div class="sidebar" id="notices">
             <h2>🔔 Notice Board</h2>
-            <marquee direction="up" scrollamount="3" height="200px" onmouseover="this.stop();" onmouseout="this.start();">
-                <div class="card" style="border-left-color: red;">
-                    <strong>Alert:</strong> Sunday (18th Oct) Online Mock Test is compulsory for all batches.
-                </div>
-                <div class="card" style="border-left-color: green;">
-                    <strong>Fee Update:</strong> Please clear your October month due fees by 20th Oct to avoid login block.
-                </div>
-                <div class="card">
-                    <strong>New Notice:</strong> Registration for upcoming crash course is now open.
-                </div>
-            </marquee>
+            <div class="card" style="border-left-color: red;">
+                <strong>Alert:</strong> Admission Open for New Session.
+            </div>
         </div>
     </div>
 
-    <!-- Login Portal Section -->
+    <!-- Login Portal Section WITHOUT POST METHOD -->
     <div class="login-box" id="portal">
         <h2 style="text-align: center;">Portal Login</h2>
-        <form action="#" method="POST">
+        <form id="loginForm" onsubmit="event.preventDefault(); checkMyLogin();">
             <label for="role">Select User Role:</label>
-            <select id="role" name="role" required>
+            <select id="role" required>
                 <option value="student">Student Login</option>
-                <option value="staff">Management Staff Login</option>
                 <option value="admin">Admin Login</option>
             </select>
 
             <label for="username">Username / Roll No:</label>
-            <input type="text" id="username" name="username" placeholder="Enter your ID" required>
+            <input type="text" id="username" placeholder="Enter User ID" required>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter Password" required>
+            <input type="password" id="password" placeholder="Enter Password" required>
 
             <button type="submit" class="btn">Login to Dashboard</button>
         </form>
@@ -110,5 +81,26 @@
         <p>&copy; 2026 A ONE EDUCATION CENTRE. All Rights Reserved.</p>
     </footer>
 
+    <script>
+        function checkMyLogin() {
+            var role = document.getElementById("role").value;
+            var user = document.getElementById("username").value;
+            var pass = document.getElementById("password").value;
+
+            if (role === "admin") {
+                if (user === "admin123" && pass === "aone@2026") {
+                    window.location.href = "staff.html";
+                } else {
+                    alert("Galat Admin ID ya Password!");
+                }
+            } else if (role === "student") {
+                if (user === "student123" && pass === "student@123") {
+                    window.location.href = "dash.html";
+                } else {
+                    alert("Galat Student ID ya Password!");
+                }
+            }
+        }
+    </script>
 </body>
 </html>
